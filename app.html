@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🍵 Kombucha Ratio Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    input {
+      padding: 8px;
+      margin: 10px 0;
+      width: 200px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍵 Kombucha Ratio Calculator</h1>
+  <p>Enter your desired batch size, and this tool will calculate the correct amounts for starter tea, sugar, and water.</p>
+
+  <label for="batchSize">Finished amount (mL):</label><br>
+  <input type="number" id="batchSize" value="4000" min="500" max="20000" step="100"><br>
+  <button onclick="calculate()">Calculate</button>
+
+  <div id="results" class="result"></div>
+
+  <script>
+    function calculate() {
+      let batchSize = parseFloat(document.getElementById("batchSize").value);
+
+      // Ratios
+      let starterRatio = 0.10;  // 10% starter tea
+      let sugarPer3785ml = 200; // grams per gallon (3785 ml)
+      let sugarRatio = sugarPer3785ml / 3785;
+
+      // Calculations
+      let starterAmount = batchSize * starterRatio;
+      let sweetTea = batchSize - starterAmount;
+      let sugarAmount = batchSize * sugarRatio;
+      let waterAmount = sweetTea; // sugar dissolves in water
+
+      // Display results
+      document.getElementById("results").innerHTML = `
+        <h2>Your Recipe</h2>
+        <p><strong>Starter tea:</strong> ${starterAmount.toFixed(0)} mL</p>
+        <p><strong>Sugar:</strong> ${sugarAmount.toFixed(0)} g</p>
+        <p><strong>Water (before sugar):</strong> ${waterAmount.toFixed(0)} mL</p>
+        <p>✨ Now you can brew your kombucha with the right ratios!</p>
+      `;
+    }
+
+    // Run on page load
+    calculate();
+  </script>
+
+</body>
+</html>
